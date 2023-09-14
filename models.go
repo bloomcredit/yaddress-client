@@ -1,5 +1,11 @@
 package yaddress
 
+type client struct {
+	client  restClient
+	userKey string
+	baseUrl string
+}
+
 type Address struct {
 	ErrorCode            int     `json:"ErrorCode"`
 	ErrorMessage         string  `json:"ErrorMessage"`
@@ -31,4 +37,9 @@ type Address struct {
 	CityMunicipality     string  `json:"CityMunicipality"`
 	SalesTaxRate         float32 `json:"SalesTaxRate"`
 	SalesTaxJurisdiction int     `json:"SalesTaxJurisdiction"`
+}
+
+type Request struct {
+	AddressLine1 string
+	AddressLine2 string
 }
