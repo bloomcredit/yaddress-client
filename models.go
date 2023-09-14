@@ -1,11 +1,5 @@
 package yaddress
 
-type client struct {
-	client  restClient
-	userKey string
-	baseUrl string
-}
-
 type Address struct {
 	ErrorCode            int     `json:"ErrorCode"`
 	ErrorMessage         string  `json:"ErrorMessage"`

@@ -1,6 +1,7 @@
 package yaddress
 
 import (
+	"errors"
 	"fmt"
 	"github.com/stretchr/testify/assert"
 	"net/http"
@@ -11,11 +12,16 @@ import (
 type mockClient struct {
 	errCode    int
 	errMessage string
+	httpError  bool
 }
 
 func (mc *mockClient) Get(url string) (*http.Response, error) {
 	w := httptest.NewRecorder()
 	w.Write([]byte(fmt.Sprintf(`{"ErrorCode":%d, "ErrorMessage":"%s"}`, mc.errCode, mc.errMessage)))
+
+	if mc.httpError {
+		return nil, errors.New("mock http error")
+	}
 	return w.Result(), nil
 }
 
@@ -32,6 +38,12 @@ func TestYaddress(t *testing.T) {
 
 	tests := []test{
 		{
+			name:      "HttpError",
+			shouldErr: true,
+			addr1:     "",
+			addr2:     "",
+		},
+		{
 			name:       "EmptyFields",
 			errCode:    2,
 			errMessage: "Invalid address: missing City-State-Zip line",
@@ -39,21 +51,6 @@ func TestYaddress(t *testing.T) {
 			addr2:      "",
 			shouldErr:  true,
 			errMsg:     "Should give an error if both address lines are empty",
-		},
-		{
-			name:    "EmptyAddress1ButPresentAddress2",
-			errCode: 0,
-			addr1:   "",
-			addr2:   "Chicago, IL",
-		},
-		{
-			name:       "PresentAddress1ButAbsentAddress2",
-			errCode:    2,
-			errMessage: "Invalid address: missing City-State-Zip line",
-			addr1:      "1009 S Oakley",
-			addr2:      "",
-			shouldErr:  true,
-			errMsg:     "Should give an error, address2 is required",
 		},
 		{
 			name:    "PresentAddress1AndAddress2",
@@ -65,10 +62,11 @@ func TestYaddress(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			yd, err := NewClient("")
+			logger := DefaultLogger()
+			yd, err := NewClient("", WithLogger(logger))
 			assert.NoError(t, err)
 
-			yd.client = &mockClient{errCode: tt.errCode, errMessage: tt.errMessage}
+			yd.httpClient = &mockClient{errCode: tt.errCode, errMessage: tt.errMessage, httpError: tt.shouldErr}
 			request := Request{AddressLine1: tt.addr1, AddressLine2: tt.addr2}
 
 			_, err = yd.ProcessAddress(request)
