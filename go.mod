@@ -1,4 +1,4 @@
-module yaddress
+module github.com/bloomcredit/yaddress-client
 
 go 1.21
 

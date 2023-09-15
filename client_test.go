@@ -63,13 +63,12 @@ func TestYaddress(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			logger := DefaultLogger()
-			yd, err := NewClient("", WithLogger(logger))
-			assert.NoError(t, err)
+			yd := NewClient("", WithLogger(logger))
 
 			yd.httpClient = &mockClient{errCode: tt.errCode, errMessage: tt.errMessage, httpError: tt.shouldErr}
 			request := Request{AddressLine1: tt.addr1, AddressLine2: tt.addr2}
 
-			_, err = yd.ProcessAddress(request)
+			_, err := yd.ProcessAddress(request)
 
 			if tt.shouldErr {
 				assert.Error(t, err, tt.errMsg)

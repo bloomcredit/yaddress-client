@@ -29,7 +29,7 @@ func DefaultLogger() *zap.SugaredLogger {
 	return log.Named("yaddress-client")
 }
 
-func NewClient(userKey string, opts ...Option) (*defaultClient, error) {
+func NewClient(userKey string, opts ...Option) *defaultClient {
 	client := &defaultClient{
 		userKey: userKey,
 		baseUrl: baseURL,
@@ -53,7 +53,7 @@ func NewClient(userKey string, opts ...Option) (*defaultClient, error) {
 		client.log = zap.NewNop().Sugar()
 	}
 
-	return client, nil
+	return client
 }
 
 func (c *defaultClient) generateQueryString(req Request) string {
