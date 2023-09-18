@@ -48,6 +48,10 @@ Each one is called with following syntax:
 	yd, err := yaddress.NewClient("", yaddress.WithLogger(logger), yaddress.WithClient(client))
 ```
 
+> **Warning**
+> Includes gives you first 1,000 transactions for free. You can find later pricing plans [here](https://www.yaddress.net/Pricing)
+
+
 ## Tests
 **Tests are written using table _driven technique_**
 
