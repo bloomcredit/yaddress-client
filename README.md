@@ -49,7 +49,7 @@ Each one is called with following syntax:
 ```
 
 > **Warning**
-> Includes gives you first 1,000 transactions for free. You can find later pricing plans [here](https://www.yaddress.net/Pricing)
+> Gives you first 1,000 transactions for free. You can find later pricing plans [here](https://www.yaddress.net/Pricing)
 
 
 ## Tests
