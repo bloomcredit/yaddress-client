@@ -75,27 +75,32 @@ func (c *defaultClient) generateQueryString(req Request) string {
 	return baseQuery
 }
 
-func (c *defaultClient) ProcessAddress(req Request) (*Address, error) {
+func (c *defaultClient) ProcessAddress(req Request) (YaddressResult, error) {
 	queryString := c.generateQueryString(req)
 
 	resp, err := c.httpClient.Get(queryString)
 	if err != nil {
-		return &Address{}, err
+		return YaddressResult{}, err
 	}
 
 	defer resp.Body.Close()
 
+	result := YaddressResult{}
+
 	var r Address
 	if err = json.NewDecoder(resp.Body).Decode(&r); err != nil {
-		return &Address{}, err
+		return YaddressResult{}, err
 	}
 
 	if r.ErrorCode != 0 {
 		err = fmt.Errorf(errorAPI, r.ErrorCode, r.ErrorMessage)
 		c.log.Error(err)
-		return &Address{}, err
+		result.Debug.ErrorMessage = r.ErrorMessage
+		result.Debug.ErrorCode = r.ErrorCode
+		return result, err
 	}
 
 	c.log.Infof("received data: %+v\n", &r)
-	return &r, nil
+	result.Result = r
+	return result, nil
 }

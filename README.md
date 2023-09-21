@@ -11,15 +11,12 @@ Find more about YAddress Web API at http://www.yaddress.net/WebApi
 ```go
 func main() {
     logger := yaddress.DefaultLogger()
-    yd, err := yaddress.NewClient("123", yaddress.WithLogger(logger))
-    
-    if err != nil {
-    panic(err)
-    }
+    yd := yaddress.NewClient("123", yaddress.WithLogger(logger))
+	
     
     request := yaddress.Request{AddressLine1: "506 Fourth Avenue Unit 1", AddressLine2: "Asbury Prk, NJ"}
-    
-    yd.ProcessAddress(request)
+
+    resp, err := yd.ProcessAddress(request)
 }
 ```
 
