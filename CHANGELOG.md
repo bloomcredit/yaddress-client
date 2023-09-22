@@ -12,3 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Added CHANGELOG
 * Added mock rest interface to simplify testing
 * Added table driven tests
+
+## [1.1.0] - 2023-09-22
+### Changed
+* Added Debug field to Response
+* Changed Response type from `Address` to `YaddressResult`
+* Small documentation fix
