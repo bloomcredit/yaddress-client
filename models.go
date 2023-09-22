@@ -37,3 +37,12 @@ type Request struct {
 	AddressLine1 string
 	AddressLine2 string
 }
+
+// YaddressResponse
+type YaddressResult struct {
+	Result Address
+	Debug  struct {
+		ErrorCode    int
+		ErrorMessage string
+	}
+}
