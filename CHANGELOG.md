@@ -18,3 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Added Debug field to Response
 * Changed Response type from `Address` to `YaddressResult`
 * Small documentation fix
+
+## [1.2.0] - 2023-09-25
+### Changed
+* Added missing types for `Address`
