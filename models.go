@@ -11,13 +11,14 @@ type Address struct {
 	Suffix               string  `json:"Suffix"`
 	PostDir              string  `json:"PostDir"`
 	Sec                  string  `json:"Sec"`
+	SecNumber            string  `json:"SecNumber"`
 	SecValidated         bool    `json:"SecValidated"`
 	City                 string  `json:"City"`
 	State                string  `json:"State"`
 	Zip                  string  `json:"Zip"`
 	Zip4                 string  `json:"Zip4"`
-	UspsCarrierRoute     string  `json:"UspsCarrierRoute"`
 	County               string  `json:"County"`
+	UspsCarrierRoute     string  `json:"UspsCarrierRoute"`
 	StateFP              string  `json:"StateFP"`
 	CountyFP             string  `json:"CountyFP"`
 	CensusTract          string  `json:"CensusTract"`
