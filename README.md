@@ -1,3 +1,8 @@
+> [!WARNING]
+> **No longer maintained.** This repository is no longer maintained by Bloomcredit. It has been archived and is read-only. It receives no further updates, support, or security fixes and should not be used in production. Provided as-is.
+
+---
+
 # YAddress Web API Go Client
 Makes calls into YAddress Web API for postal address correction, validation,
 standardization and geocoding.
